@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 class FornecedorController extends Controller
 {
     
+    public function index(){
+        $titulo = 'Fornecedor - Index';
+        return view('app.fornecedor',['titulo'=>$titulo]);
+    }  
+    
+/* antigo
     public function index() {
         $titulo = 'Fornecedor';
         $fornecedores = ['Fornecedor 1']; // cria variável e atribui array para ela
@@ -20,6 +26,7 @@ class FornecedorController extends Controller
 
         return view('app.fornecedor.index',compact('fornecedores', 'fornecedoresMulti'), ['titulo'=>$titulo]);
     }
+*/
     
     public function fornecedor() {
         $titulo = 'Fornecedor';

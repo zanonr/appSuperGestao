@@ -16,6 +16,19 @@ class AutenticacaoMiddleware
      */
     public function handle(Request $request, Closure $next, $metodo_autenticacao, $perfil)
     {
+        session_start();
+
+        if( isset($_SESSION['email']) && $_SESSION['email'] != '' ){
+            return $next($request);
+        } else {
+            return redirect()->route('site.login',['erro' => 2]);
+        }
+
+
+
+
+
+/*  codigo de teste do inicio do curso
         echo($metodo_autenticacao).' - '.$perfil;
         echo '<br>';
         if($metodo_autenticacao == 'padrao'){
@@ -27,5 +40,6 @@ class AutenticacaoMiddleware
         } else {
             return Response('Acesso negado! Rota exige autenticação.');
         }
+*/
     }
 }

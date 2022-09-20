@@ -10,6 +10,8 @@ use App\Http\Controllers\FornecedorController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\TesteController;
 use App\Http\Middleware\LogAcessoMiddlware;
+use App\Http\Controllers\HomeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -37,9 +39,11 @@ Route::get('/contato', function () {
 // Rotas Autenticadas
 Route::middleware('autenticacao:padrao,visitante')
         ->prefix('/app')->group((function() {
-    Route::get('/clientes', [ClienteController::class, 'cliente'])->name('app.clientes'); //nomear a rota para não ter dependência direta
-    Route::get('/fornecedores', [FornecedorController::class, 'index'])->name('app.fornecedores');
-    Route::get('/produtos', [ProdutoController::class, 'produto'])->name('app.produtos');
+    Route::get('/home', [HomeController::class, 'index'])->name('app.home'); //nomear a rota para não ter dependência direta            
+    Route::get('/sair', [LoginController::class, 'sair'])->name('app.sair');
+    Route::get('/cliente', [ClienteController::class, 'cliente'])->name('app.cliente'); 
+    Route::get('/fornecedor', [FornecedorController::class, 'index'])->name('app.fornecedor');
+    Route::get('/produto', [ProdutoController::class, 'index'])->name('app.produto');
 }));
 
 Route::get('/teste/{p1}/{p2}', [TesteController::class, 'teste'])->name('site.teste'); // Controller passando parâmetros
@@ -53,7 +57,7 @@ Route::fallback( function(){
 Route::get('/', [PrincipalController::class, 'principal'])
     ->name('site.index');
     
-Route::get('/login', [LoginController::class, 'index'])->name('site.login');
+Route::get('/login/{erro?}', [LoginController::class, 'index'])->name('site.login');
 Route::post('/login', [LoginController::class, 'autenticar'])->name('site.login');
 
 Route::get('/sobre-nos', [SobreNosController::class, 'sobreNos'])->name('site.sobrenos');
